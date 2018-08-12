@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>扫码支付模式一</title>
+        <meta charset="UTF-8">
+        <script src="https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+    </head>
+    <body>
+        <img id="qr" src="" >
+        <br>
+        产品id <input type="text" id="pid" > <br>
+        <span id="view" style="color:red;"></span> <br>
+        <input type="button" value="生成二维码" onclick="creQr($('#pid').val())" >
+        <hr>
+        0 等待扫码<br>
+        1 扫码完成<br>
+        2 支付成功
+        <script type="text/javascript">
+            function creQr(pid){
+                var url = 'http://www.xueyansmt.com/weixin/index.php';
+                new_url = url + '?pid=' + pid +'&' + Math.random();
+                document.getElementById('qr').src = new_url;
+            }
+            function my_monitor(){
+                $.ajax({
+                   url:'logs/log.txt?' + Math.random(),
+                   dataType:'html',
+                   success:function(res) {
+                       if(res == 0){
+                           $('#view').text('请扫码');
+                       }else if(res == 1){
+                           $('#view').text('您已经扫码完成,请支付');
+                       }else if(res == 2){
+                           $('#view').text('您已经支付成功,请等待发货');
+                       }
+                       
+                   }
+               })
+            }
+        //Ajax定时访问服务端，2秒一次
+      // window.setInterval('my_monitor()',2000);
+        </script>
+    </body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>监控页面</title>
+        <meta charset="UTF-8">
+        <script src="https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+    </head>
+    <body>
+        <pre>
+        <span id="view"></span>
+        </pre>
+        <script type="text/javascript">
+            function my_monitor(){
+                $.ajax({
+                   url:'logs/log.txt?' + Math.random(),
+                   dataType:'html',
+                   success:function(res) {
+                       $('#view').text(res);
+                   }
+               })
+            }
+        //Ajax定时访问服务端，2秒一次
+        window.setInterval('my_monitor()',2000);
+        </script>
+    </body>
+</html>
